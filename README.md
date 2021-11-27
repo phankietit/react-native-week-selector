@@ -2,7 +2,7 @@
 
 ## Usage
 
-```typescript
+```javascript
 import {
   IRangeDateSelectorItem,
   RangeDateSelector,
