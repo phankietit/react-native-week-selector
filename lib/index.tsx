@@ -1,47 +1,20 @@
-import moment, { Moment } from "moment";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, TextStyle, TouchableOpacity, TouchableWithoutFeedback, View, ViewStyle } from "react-native";
+import { FlatList, Text,  TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import Modal from "react-native-modal";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import styles from "./index.style";
+import {RangeDateSelectorProps, IRangeDateSelectorItem} from "../dist/types"
 
-
-interface RangeDateSelectorProps {
-  children: JSX.Element,
-  type: "week" | "month",
-  weekLabel?: string,
-  formatDate?: string,
-  renderItem?: ({ item, index, selected }: { item: RangeDateSelectorItem, index: number, selected: boolean }) => JSX.Element,
-  selectedColor?: string,
-  buttonStyle?: ViewStyle | ViewStyle[],
-  buttonTextStyle?: TextStyle | TextStyle[],
-  yearTextStyle?: TextStyle | TextStyle[],
-  labelStyle?: ViewStyle | ViewStyle[],
-  labelTextStyle?: TextStyle | TextStyle[],
-  closeText?: string,
-  confirmText?: string,
-  onConfirm?: (selected: RangeDateSelectorItem) => void,
-  currentYear?: number
-}
-
-export interface RangeDateSelectorItem
-{
-  title: string,
-  start: Moment,
-  end: Moment,
-  index: number,
-  id: string
-}
-
-let lazyYears: RangeDateSelectorItem[][] = [];
+let lazyYears: IRangeDateSelectorItem[][] = [];
 
 const RangeDateSelector = (props: RangeDateSelectorProps) =>
 {
 
   const [visible, setVisible] = useState(false);
   const [currentYear, setCurrentYear] = useState<number>();
-  const [data, setData] = useState<RangeDateSelectorItem[]>([]);
-  const [selected, setSelected] = useState<RangeDateSelectorItem | null>(null);
+  const [data, setData] = useState<IRangeDateSelectorItem[]>([]);
+  const [selected, setSelected] = useState<IRangeDateSelectorItem | null>(null);
 
   useEffect(() =>
   {
@@ -66,15 +39,15 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
     }
   };
 
-  const getWeekOfYear = (year: number) : RangeDateSelectorItem[] =>
+  const getWeekOfYear = (year: number) : IRangeDateSelectorItem[] =>
   {
-    const weekArray : RangeDateSelectorItem[] = [];
+    const weekArray : IRangeDateSelectorItem[] = [];
     for (let index = 1; index <= 52; index++)
     {
       const start = moment({ year }).week(index).startOf("isoWeek");
       const end = moment({ year }).week(index).endOf("isoWeek");
 
-      const week: RangeDateSelectorItem = {
+      const week: IRangeDateSelectorItem = {
         id: `${year}_${index}`,
         title: `${ props.weekLabel } ${ index } (${start.format(props.formatDate)} - ${end.format(props.formatDate)})`,
         start,
@@ -88,15 +61,15 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
     return weekArray;
   };
 
-  const getMonthOfYear = (year: number) : RangeDateSelectorItem[] =>
+  const getMonthOfYear = (year: number) : IRangeDateSelectorItem[] =>
   {
-    const monthArray : RangeDateSelectorItem[] = [];
+    const monthArray : IRangeDateSelectorItem[] = [];
     for (let index = 1; index <= 12; index++)
     {
       const start = moment({ year }).month(index - 1).startOf("month");
       const end = moment({ year }).month(index - 1).endOf("month");
 
-      const month: RangeDateSelectorItem = {
+      const month: IRangeDateSelectorItem = {
         id: `${year}_${index}`,
         title: `${ start.format("MMMM") } (${start.format(props.formatDate)} - ${end.format(props.formatDate)})`,
         start,
@@ -106,8 +79,8 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
 
       monthArray.push(month);
     }
-    console.log("monthArray: ", monthArray);
-    return monthArray;
+
+      return monthArray;
   };
 
   const handleShowPicker = () =>
@@ -178,7 +151,7 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
     );
   };
 
-  const renderItem = ({ item, index }: { item: RangeDateSelectorItem, index: number }) =>
+  const renderItem = ({ item, index }: { item: IRangeDateSelectorItem, index: number }) =>
   {
     return (
       <TouchableOpacity onPress={() => setSelected(item)}>

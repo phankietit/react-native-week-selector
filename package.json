@@ -1,10 +1,15 @@
 {
-  "name": "react-native-week-selector",
-  "version": "1.0.0",
+  "name": "@phankiet/react-native-week-selector",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phankietit/react-native-week-selector.git"
   },
   "keywords": [
     "react-native",
@@ -13,5 +18,17 @@
     "date-picker"
   ],
   "author": "Phan Kiet",
-  "license": "ISC"
+  "license": "MIT",
+  "homepage": "https://github.com/phankietit/react-native-week-selector#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.64.0"
+  },
+  "dependencies": {
+    "react-native-modal": "^13.0.0",
+    "react-native-vector-icons": "^8.1.0"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.66.2"
+  }
 }
