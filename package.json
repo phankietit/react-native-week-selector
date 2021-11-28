@@ -1,6 +1,6 @@
 {
   "name": "@phankiet/react-native-week-selector",
-  "version": "1.0.2",
+  "version": "1.0.22",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

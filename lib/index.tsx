@@ -71,7 +71,7 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
 
       const month: IRangeDateSelectorItem = {
         id: `${year}_${index}`,
-        title: `${ start.format("MMMM") } (${start.format(props.formatDate)} - ${end.format(props.formatDate)})`,
+        title: `${ toCapitalize(start.format("MMMM")) } (${start.format(props.formatDate)} - ${end.format(props.formatDate)})`,
         start,
         end,
         index
@@ -82,6 +82,15 @@ const RangeDateSelector = (props: RangeDateSelectorProps) =>
 
       return monthArray;
   };
+    
+    const toCapitalize = (str) => {
+        return str.replace(
+          /\w\S*/g,
+          function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
 
   const handleShowPicker = () =>
   {
